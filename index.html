@@ -13,63 +13,112 @@
   <body>
       <div class='container' id="app">
           <div class='row mt-5'>
-              <div class='col-sm-4'>
+              <div class="col-sm-3"></div>
+              <div class='col-sm-6'>
                 <div class='card card-body'>
                   <h4>AdOn Signature Form</h4>
                   <hr>
-                  <form action='' class='form form-group mb-3'>
+                  <div class="card card-body">
+                    <strong>Form options</strong>
+                    <div class="form-check">
+                      <input @click="showFormOpt1" class="form-check-input" type="radio" name="flexRadioDefault" id="isdefault" checked>
+                      <label class="form-check-label" for="isdefault">
+                        Default
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input @click="showFormOpt2" class="form-check-input" type="radio" name="flexRadioDefault" id="twocontact">
+                      <label class="form-check-label" for="twocontact">
+                        2 Contact Numbers
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input @click="showFormOpt3" class="form-check-input" type="radio" name="flexRadioDefault" id="mobileonly">
+                      <label class="form-check-label" for="mobileonly">
+                        Mobile number only
+                      </label>
+                    </div>
+                  </div>
+                  <hr>
+                  <form v-if="isShowOpt1" class='form form-group mb-3'>
                       <label for=''>Name</label>
-                      <input v-model="sigName" id='signame' type='text' class='form-control mb-2'>
+                      <input id='signame' type='text' class='form-control mb-2' :placeholder="sigName">
                       <label for=''>Position</label>
-                      <input v-model="sigPosition" id="sigposition" type='text' class='form-control mb-2'>
-                      <label for=''>Contact Number</label>
-                      <input v-model="sigContact" id="sigcontact" type='text' class='form-control mb-2'>
+                      <input id="sigposition" type='text' class='form-control mb-2' :placeholder="sigPosition">
+                      <label for=''>Phone Number</label>
+                      <input id="sigphone" type='text' class='form-control mb-2' :placeholder="sigPhone" v-model="sigPhone">
+                      <button style='width: 100%;' class='btn btn-primary' v-on:click="getData">
+                        Create Signature
+                      </button>
                   </form>
-                  <button style='width: 100%;' class='btn btn-primary' v-on:click="getData">
+                  <form v-if="isShowOpt2" action='' class='form form-group mb-3'>
+                    <label for=''>Name</label>
+                    <input id='signame2' type='text' class='form-control mb-2' :placeholder="sigName">
+                    <label for=''>Position</label>
+                    <input id="sigposition2" type='text' class='form-control mb-2' :placeholder="sigPosition">
+                    <label for=''>Phone Number</label>
+                    <input id="sigphone2" type='text' class='form-control mb-2' :placeholder="sigPhone" v-model="sigPhone"> 
+                    <label for=''>Mobile Number</label>
+                    <input id="sigmobile2" type='text' class='form-control mb-2' :placeholder="sigMobile" v-model="sigMobile">
+                    <button style='width: 100%;' class='btn btn-primary' v-on:click="getData2">
                       Create Signature
-                  </button>
+                    </button>
+                  </form>
+                  <form v-if="isShowOpt3" action='' class='form form-group mb-3'>
+                    <label for=''>Name</label>
+                    <input id='signame3' type='text' class='form-control mb-2' :placeholder="sigName">
+                    <label for=''>Position</label>
+                    <input id="sigposition3" type='text' class='form-control mb-2' :placeholder="sigPosition">
+                    <label for=''>Mobile Number</label>
+                    <input id="sigmobile3" type='text' class='form-control mb-2' :placeholder="sigMobile" v-model="sigMobile">
+                    <button style='width: 100%;' class='btn btn-primary' v-on:click="getData3">
+                      Create Signature
+                    </button>
+                  </form>
                 </div>
               </div>
-              <div class='col-sm-8'>
-                <table style='width: 760px; height: auto; font-family: sans-serif; background: url(https://i.postimg.cc/T114xfKp/bg-gradiant.png); background-repeat: no-repeat; padding: 10px; background-size: cover; color: #fff; border-radius: 10px; margin: 0;'>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <img style='width: 180px; height: auto; padding: -10px;' src='https://adondevelopment.com/clients/2021_sig_directory/images/AOG-logo_white.png' alt='AdOn logo'>
-                      </td>
-                      <td style='padding-top: 10px;'>
-                        <strong style='font-size: 16px;'>
-                          {{ sigName }}<br>
-                          <small>{{ sigPosition }}</small>
-                        </strong>
-                        <p style='font-size: 12px;'>
-                          <a :href=`tel:${sigContact}` target='_blank' style='text-decoration: none; color: #fff; align-items: center;'>
-                            <span>
-                              <img style='width: 12px; align-items: center;' src='https://adondevelopment.com/clients/2021_sig_directory/images/icon-01.png' alt='phone'>
-                            </span> &nbsp {{ sigContact }}
-                          </a>
-                          <br>
-                          <a href='https://www.adongroup.com.au' target='_blank' style='text-decoration: none; color: #fff; align-items: center;'>
-                            <span>
-                              <img style='width: 12px; align-items: center;' src='https://adondevelopment.com/clients/2021_sig_directory/images/icon-02.png' alt='internet'>
-                            </span> &nbsp www.adongroup.com.au
-                          </a>
-                          <br>
-                        </p>
-                      </td>
-                      <td>
-                        <img style='width: 300px; height: auto; float: right;' src='https://adondevelopment.com/clients/2021_sig_directory/images/AdOn-logo-and-partners-higher-res-updated-v2.gif' alt='Partner'>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan='3'>
-                        <p style='line-height: 1.2; font-size: 8px; padding-left: 15px; padding-right: 15px;'>
-                          This email, its contents and any attachments are strictly confidential. They must not be used, distributed, copied or read by any person other than the addressee. Unauthorised use, disclosure, copying or reliance on the contents of and attachments to this email by anyone other than the addressee may be unlawful. If you have received this email and attachments in error please contact us at Ad on Group immediately to facilitate its return.
-                        </p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class='col-sm-3'>
+                <!-- <div class="card card-body">
+                  <table style='width: 760px; height: auto; font-family: sans-serif; background: url(https://i.postimg.cc/T114xfKp/bg-gradiant.png); background-repeat: no-repeat; padding: 10px; background-size: cover; color: #fff; border-radius: 10px; margin: 0;'>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <img style='width: 180px; height: auto; padding: -10px;' src='https://adondevelopment.com/clients/2021_sig_directory/images/AOG-logo_white.png' alt='AdOn logo'>
+                        </td>
+                        <td style='padding-top: 10px;'>
+                          <strong style='font-size: 16px;'>
+                            {{ sigName }}<br>
+                            <small>{{ sigPosition }}</small>
+                          </strong>
+                          <p style='font-size: 12px;'>
+                            <a :href=`tel:${sigContact}` target='_blank' style='text-decoration: none; color: #fff; align-items: center;'>
+                              <span>
+                                <img style='width: 12px; align-items: center;' src='https://adondevelopment.com/clients/2021_sig_directory/images/icon-01.png' alt='phone'>
+                              </span> &nbsp {{ sigContact }}
+                            </a>
+                            <br>
+                            <a href='https://www.adongroup.com.au' target='_blank' style='text-decoration: none; color: #fff; align-items: center;'>
+                              <span>
+                                <img style='width: 12px; align-items: center;' src='https://adondevelopment.com/clients/2021_sig_directory/images/icon-02.png' alt='internet'>
+                              </span> &nbsp www.adongroup.com.au
+                            </a>
+                            <br>
+                          </p>
+                        </td>
+                        <td>
+                          <img style='width: 300px; height: auto; float: right;' src='https://adondevelopment.com/clients/2021_sig_directory/images/AdOn-logo-and-partners-higher-res-updated-v2.gif' alt='Partner'>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan='3'>
+                          <p style='line-height: 1.2; font-size: 8px; padding-left: 15px; padding-right: 15px;'>
+                            This email, its contents and any attachments are strictly confidential. They must not be used, distributed, copied or read by any person other than the addressee. Unauthorised use, disclosure, copying or reliance on the contents of and attachments to this email by anyone other than the addressee may be unlawful. If you have received this email and attachments in error please contact us at Ad on Group immediately to facilitate its return.
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div> -->
               </div>
           </div>
       </div>
@@ -79,19 +128,13 @@
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js' integrity='sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8' crossorigin='anonymous'></script>
-    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue@3.0.11"></script>
+    <!-- <script src="https://unpkg.com/browse/vue-router@4.0.8/dist/vue-router.global.js"></script> -->
     <script src="js/app.js"></script>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js' integrity='sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p' crossorigin='anonymous'></script>
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js' integrity='sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ' crossorigin='anonymous'></script>
     -->
-    <!-- <script>
-        const sampledata = document.getElementById('sample').value;
-        function createSig(){
-            var openSig = window.open('', '', 'width=800,height=200', name='Email Signature');
-            openSig.document.write("<table style='width: 760px; height: auto; font-family: sans-serif; background: url(https://i.postimg.cc/T114xfKp/bg-gradiant.png); background-repeat: no-repeat; padding: 10px; background-size: cover; color: #fff; border-radius: 10px; margin: 0;'><tbody><tr><td><img style='width: 180px; height: auto; padding: -10px;' src='https://adondevelopment.com/clients/2021_sig_directory/images/AOG-logo_white.png' alt='AdOn logo'></td><td style='padding-top: 10px;'><strong style='font-size: 16px;'>"+sampledata+"<br><small>Creative Content Writer</small></strong><p style='font-size: 12px;'><a href='tel:07 5586 1400' target='_blank' style='text-decoration: none; color: #fff; align-items: center;'><span><img style='width: 12px; align-items: center;' src='https://adondevelopment.com/clients/2021_sig_directory/images/icon-01.png' alt='phone'></span> &nbsp 07 5586 1400</a><br><a href='https://www.adongroup.com.au' target='_blank' style='text-decoration: none; color: #fff; align-items: center;'><span><img style='width: 12px; align-items: center;' src='https://adondevelopment.com/clients/2021_sig_directory/images/icon-02.png' alt='internet'></span> &nbsp www.adongroup.com.au</a><br></p></td><td><img style='width: 300px; height: auto; float: right;' src='https://adondevelopment.com/clients/2021_sig_directory/images/AdOn-logo-and-partners-higher-res-updated-v2.gif' alt='Partner'></td></tr><tr><td colspan='3'><p style='line-height: 1.2; font-size: 8px; padding-left: 15px; padding-right: 15px;'>This email, its contents and any attachments are strictly confidential. They must not be used, distributed, copied or read by any person other than the addressee. Unauthorised use, disclosure, copying or reliance on the contents of and attachments to this email by anyone other than the addressee may be unlawful. If you have received this email and attachments in error please contact us at Ad on Group immediately to facilitate its return.</p></td></tr></tbody></table>")
-        }
-    </script> -->
   </body>
 </html>
